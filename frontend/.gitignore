@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+# webpack
+/dist
+
 # misc
 .DS_Store
 .env.local
@@ -12,3 +15,4 @@
 
 npm-debug.log*
 
+ 
