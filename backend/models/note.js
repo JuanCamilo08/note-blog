@@ -18,7 +18,8 @@ const schema = new mongoose.Schema({
     type: Date,
     default: new Date(),
     required: true
-  }
+  },
+  modifiedDate: Date
 });
 
 module.exports.Note = mongoose.model('note', schema);
@@ -33,7 +34,8 @@ module.exports.validationNote = function(note) {
       .min(5)
       .max(2000)
       .required(),
-    creationDate: Joi.date()
+    creationDate: Joi.date(),
+    modifiedDate: Joi.date()
   };
 
   return Joi.validate(note, schema);
