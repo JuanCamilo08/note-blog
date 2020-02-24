@@ -19,19 +19,18 @@ router.get('/:id', validateObjectId, async (req, res) => {
 });
 
 router.post('/', validator(validationNote), async (req, res) => {
-  const { title, content, creationDate } = req.body;
-  let note = new Note({ title, content, creationDate });
+  const { content, creationDate } = req.body;
+  let note = new Note({ content, creationDate });
   note = await note.save();
 
   res.status(201).send(note);
 });
 
 router.put('/:id', [validateObjectId, validator(validationNote)], async (req, res) => {
-  const { title, content } = req.body;
+  const { content } = req.body;
   const note = await Note.findByIdAndUpdate(
     req.params.id,
     {
-      title,
       content,
       modifiedDate: new Date()
     },
