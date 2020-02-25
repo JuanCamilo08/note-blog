@@ -19,3 +19,50 @@
   vertical-align: top;
   cursor: pointer;
 }
+
+.list {
+  width: 50vw;
+  margin: 10px auto;
+  list-style: none;
+  padding: 0;
+}
+
+.item-list {
+  width: 30rem;
+  vertical-align: middle;
+  margin: 0 auto;
+}
+
+.item-tbn {
+  display: inline-block;
+  margin: 1px;
+  border: 1px solid black;
+  padding: 5px;
+  vertical-align: top;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.delete-btn {
+  background-color: red;
+}
+
+.edit-btn {
+  background-color: green;
+}
+
+.icon {
+  vertical-align: text-top;
+}
+
+.input-value {
+  /* border: none; */
+  max-width: 400px;
+  min-width: 400px;
+}
+
+.text-value {
+  display: inline-block;
+  width: 400px;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from './utils/axios';
-import { fetchNotes, postNote } from './utils/api';
+import { fetchNotes, postNote, deleteNote } from './utils/api';
+import ItemList from './components/ItemList';
 
 class App extends React.Component {
   state = {
@@ -9,18 +9,30 @@ class App extends React.Component {
     err: null
   };
 
-  onClick = async event => {
+  postNote = async event => {
     event.preventDefault();
 
     const { content } = this.state;
 
     try {
-      const post = await postNote(content);
+      await postNote(content);
 
       const data = await fetchNotes();
+      this.setState({ notes: data, content: '' });
+    } catch (ex) {
+      this.setState({ err: ex });
+    }
+  };
 
-      console.log('la del onClick ', data);
+  deleteNote = async (event, id) => {
+    event.preventDefault();
 
+    const { note } = this.state;
+
+    try {
+      await deleteNote(id);
+
+      const data = await fetchNotes();
       this.setState({ notes: data, content: '' });
     } catch (ex) {
       this.setState({ err: ex });
@@ -54,15 +66,15 @@ class App extends React.Component {
       <React.Fragment>
         <div className="search">
           <input value={content} onChange={this.onChange} className="input" />
-          <button onClick={this.onClick} className="btn">
+          <button onClick={this.postNote} className="btn">
             agregar
           </button>
         </div>
         <div>
-          <ul>
+          <ul className="list">
             {notes &&
               notes.data.map(note => {
-                return <li key={note._id}>{note.content} </li>;
+                return <ItemList note={note} key={note._id} deleteNote={this.deleteNote} />;
               })}
           </ul>
         </div>

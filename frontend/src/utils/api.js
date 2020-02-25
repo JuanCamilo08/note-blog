@@ -16,3 +16,7 @@ export async function postNote(content) {
 
   return data;
 }
+
+export async function deleteNote(id) {
+  await axios.delete('/note/' + id);
+}
