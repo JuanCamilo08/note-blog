@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchNotes, postNote, deleteNote } from './utils/api';
+import { fetchNotes, postNote, deleteNote, updateNote } from './utils/api';
 import ItemList from './components/ItemList';
 
 class App extends React.Component {
@@ -27,10 +27,21 @@ class App extends React.Component {
   deleteNote = async (event, id) => {
     event.preventDefault();
 
-    const { note } = this.state;
-
     try {
       await deleteNote(id);
+
+      const data = await fetchNotes();
+      this.setState({ notes: data, content: '' });
+    } catch (ex) {
+      this.setState({ err: ex });
+    }
+  };
+
+  updateNote = async (event, id, newContent) => {
+    event.preventDefault();
+
+    try {
+      await updateNote(id, newContent);
 
       const data = await fetchNotes();
       this.setState({ notes: data, content: '' });
@@ -74,7 +85,14 @@ class App extends React.Component {
           <ul className="list">
             {notes &&
               notes.data.map(note => {
-                return <ItemList note={note} key={note._id} deleteNote={this.deleteNote} />;
+                return (
+                  <ItemList
+                    note={note}
+                    key={note._id}
+                    deleteNote={this.deleteNote}
+                    updateNote={this.updateNote}
+                  />
+                );
               })}
           </ul>
         </div>

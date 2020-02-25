@@ -20,3 +20,9 @@ export async function postNote(content) {
 export async function deleteNote(id) {
   await axios.delete('/note/' + id);
 }
+
+export async function updateNote(id, newContent) {
+  await axios.put('/note/' + id, {
+    content: newContent
+  });
+}

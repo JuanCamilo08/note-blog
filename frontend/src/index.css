@@ -60,6 +60,8 @@
   /* border: none; */
   max-width: 400px;
   min-width: 400px;
+  max-height: 200px;
+  min-height: 20px;
 }
 
 .text-value {
